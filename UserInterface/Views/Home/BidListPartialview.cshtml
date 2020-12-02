@@ -1,0 +1,25 @@
+﻿@model List<Entities.Bid>
+
+
+<br />
+<table class="table" style="padding-bottom:200px !important;">
+    <thead>
+        <tr> 
+            <td>#</td>@*logo*@
+            <td>Firma Adı</td>
+            <td>Teklif</td>
+            <td>Açıklama</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bid in Model)
+        {
+        <tr>
+            <td>@bid.Logo</td>
+            <td>@bid.CompanyName</td>
+            <td>@bid.Price</td>
+            <td>@bid.Description</td>
+        </tr>
+        }
+    </tbody>
+</table>

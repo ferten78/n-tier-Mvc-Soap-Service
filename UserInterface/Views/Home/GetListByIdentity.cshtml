@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Geçmiş Tekifler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eski Teklifleri Sorgulama</h2>
+
+<div class="form-group">
+    <label for="tc">T.C. Kimlik No:</label>
+    <input type="text" class="form-control" id="tc">
+    <br />
+
+    <button id="button" type="button" onclick="getData()" class="btn btn-primary">Sorgula</button>
+</div>
+<div id="dataTable"></div>
+<script>
+    function getData()
+    {
+      var data = {
+             tc: document.getElementById("tc").value
+        };
+
+        if (data.tc) {
+
+         $.ajax({    
+             type: "GET",
+            url: '@Url.Action("GetBids", "Home")',
+            data: data, 
+             success: function (result) {
+                 if (result) {
+                        $("#dataTable").html(result);
+                }
+
+            }
+         });
+
+        } else {
+            alert("Tc Kimlik No giriniz");
+        }
+    }
+</script>

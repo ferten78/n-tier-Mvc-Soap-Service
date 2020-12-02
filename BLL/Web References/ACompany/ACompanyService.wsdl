@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetBid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="identityNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBidResult" type="tns:Bid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Bid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Logo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetBidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBid" />
+  </wsdl:message>
+  <wsdl:message name="GetBidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBidResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ACompanyServiceSoap">
+    <wsdl:operation name="GetBid">
+      <wsdl:input message="tns:GetBidSoapIn" />
+      <wsdl:output message="tns:GetBidSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ACompanyServiceSoap" type="tns:ACompanyServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBid">
+      <soap:operation soapAction="http://tempuri.org/GetBid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ACompanyServiceSoap12" type="tns:ACompanyServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBid">
+      <soap12:operation soapAction="http://tempuri.org/GetBid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ACompanyService">
+    <wsdl:port name="ACompanyServiceSoap" binding="tns:ACompanyServiceSoap">
+      <soap:address location="https://localhost:44326/ACompanyService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ACompanyServiceSoap12" binding="tns:ACompanyServiceSoap12">
+      <soap12:address location="https://localhost:44326/ACompanyService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
